@@ -18,10 +18,14 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import java.util.Optional;
 
 
+
+
 @Path("/hello")
 public class GreetingResource {
 
     public static final Logger log = LoggerFactory.getLogger(GreetingResource.class);
+
+    
 
     @Inject
     GreetingService service;
@@ -50,4 +54,6 @@ public class GreetingResource {
     public String hello() {
         return message + " " + name.orElse("world") + suffix;
     }
+
+    
 }

@@ -23,9 +23,17 @@ import io.quarkus.panache.common.Parameters;
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 
+import io.vertx.mutiny.core.eventbus.EventBus;
+import jakarta.inject.Inject;
+
+import io.smallrye.mutiny.Uni;
+import jakarta.ws.rs.POST;
+
 @Path("/person")
 @ApplicationScoped
 public class PersonResource {
+
+    @Inject EventBus bus;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -90,6 +98,20 @@ public class PersonResource {
             return result;
 
     }
+
+    @POST
+    @Path("/{name}")
+    public Uni<Person> addPerson(String name) {
+          return bus.<Person>request("add-person", name)
+                .onItem().transform(response -> response.body());
+    }
+
+    @GET
+    @Path("/name/{name}")
+    public Person byName(String name) {
+        return Person.find("name", name).firstResult();
+    }
+
 
     // TODO: Add lifecycle hook
     @Transactional
