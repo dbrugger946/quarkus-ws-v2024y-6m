@@ -1,5 +1,9 @@
 = Quarkus Workshop Guide Source Code
 
+Correct Associated source repo to start with:
+https://github.com/RedHat-Middleware-Workshops/quarkus-workshop-m1m2-labs/tree/ocp-4.15
+
+
 This is the source code for the https://github.com/RedHatWorkshops/quarkus-workshop[Quarkus Workshop].
 
 This workshop focuses on https://quarkus.io[Quarkus], supersonic, subatomic container-native Java. The workshop uses https://eclipse.org/che[Eclipse Che] to develop Quarkus apps and deploy them to a Kubernetes cluster (based on OpenShift), and covers several other developer topics.
