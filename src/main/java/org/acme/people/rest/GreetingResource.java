@@ -17,6 +17,8 @@ import jakarta.ws.rs.PathParam;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import java.util.Optional;
 
+import io.micrometer.core.instrument.MeterRegistry;
+
 
 
 
@@ -24,6 +26,12 @@ import java.util.Optional;
 public class GreetingResource {
 
     public static final Logger log = LoggerFactory.getLogger(GreetingResource.class);
+
+    private final MeterRegistry registry;
+
+    GreetingResource(MeterRegistry registry) {
+        this.registry = registry;
+    }
 
     
 
@@ -52,7 +60,8 @@ public class GreetingResource {
     @Produces(MediaType.TEXT_PLAIN)
     @NonBlocking
     public String hello() {
-        return message + " " + name.orElse("world") + suffix;
+        registry.counter("greeting.hello.counter").increment();
+        return "hello";
     }
 
     
